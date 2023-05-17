@@ -3,6 +3,7 @@
 <?if ($arResult["isFormErrors"] == "Y"):?>
 <?=$arResult["FORM_ERRORS_TEXT"];?><?endif;?>
 
+
 <div class="contact-form">
     <div class="contact-form__head">
         <div class="contact-form__head-title">
@@ -12,8 +13,16 @@
             <?=$arResult["FORM_DESCRIPTION"]?>
         </div>
     </div>
+    
+    <?=str_replace('<form', '<form class="contact-form__form"', $arResult["FORM_HEADER"])?>
+    <input type="hidden" name="web_form_submit" value="Y">
 
-    <form class="contact-form__form" action="/" method="POST">
+    <? if ($arResult["isFormErrors"] === "Y"): ?>
+        <div class="errors">
+            <?=$arResult["FORM_ERRORS_TEXT"]?>
+        </div>
+    <? endif; ?>
+
         <div class="contact-form__form-inputs">
             <div class="input contact-form__input">
                 <label class="input__label" for="medicine_name">
@@ -21,7 +30,7 @@
                         <?=$arResult["QUESTIONS"]['NAME']['CAPTION']?>
                         <?=($arResult["QUESTIONS"]['NAME']['REQUIRED'] === 'Y' ? ' *' : '')?>
                     </div>
-                    <input class="input__input" type="text" id="medicine_name" name="medicine_name" value=""
+                    <input class="input__input" type="text" id="medicine_name" name="form_text_1" value=""
                         required="">
                     <div class="input__notification">
                         Поле должно содержать не менее 3-х символов
@@ -34,7 +43,7 @@
                         <?=$arResult["QUESTIONS"]['COMPANY']['CAPTION']?>
                         <?=($arResult["QUESTIONS"]['COMPANY']['REQUIRED'] === 'Y' ? ' *' : '')?>
                     </div>
-                    <input class="input__input" type="text" id="medicine_company" name="medicine_company" value=""
+                    <input class="input__input" type="text" id="medicine_company" name="form_text_3" value=""
                         required="">
                     <div class="input__notification">
                         Поле должно содержать не менее 3-х символов
@@ -47,7 +56,7 @@
                         <?=$arResult["QUESTIONS"]['EMAIL']['CAPTION']?>
                         <?=($arResult["QUESTIONS"]['EMAIL']['REQUIRED'] === 'Y' ? ' *' : '')?>
                     </div>
-                    <input class="input__input" type="email" id="medicine_email" name="medicine_email" value=""
+                    <input class="input__input" type="email" id="medicine_email" name="form_text_2" value=""
                         required="">
                     <div class="input__notification">
                         Неверный формат почты
@@ -62,7 +71,7 @@
                     </div>
                     <input class="input__input" type="tel" id="medicine_phone"
                         data-inputmask="'mask': '+79999999999', 'clearIncomplete': 'true'" maxlength="12"
-                        x-autocompletetype="phone-full" name="medicine_phone" value="" required="">
+                        x-autocompletetype="phone-full" name="form_text_4" value="" required="">
                 </label>
             </div>
         </div>
@@ -73,7 +82,7 @@
                             <?=$arResult["QUESTIONS"]['MESSAGE']['CAPTION']?>
                             <?=($arResult["QUESTIONS"]['MESSAGE']['REQUIRED'] === 'Y' ? ' *' : '')?>
                     </div>
-                    <textarea class="input__input" type="text" id="medicine_message" name="medicine_message"
+                    <textarea class="input__input" type="text" id="medicine_message" name="form_textarea_5"
                             value=""></textarea>
                     <div class="input__notification"></div>
                 </label>
@@ -91,7 +100,5 @@
                 </div>
             </button>
         </div>
-    </form>
+    <?=$arResult["FORM_FOOTER"]?>
 </div>
-
-<?=$arResult["FORM_FOOTER"]?>
